@@ -1,0 +1,1497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="Sqlite (Xerial) - pokedex.db" uuid="42084bb2-9e77-457f-b801-20ec15904165">
+    <database-info product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
+    <schema name="" catalog=""/>
+    <table name="abilities" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(generation_id"/>
+      <foreign-key name="#FAKE_abilities_1" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="ability_changelog" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="ability_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="changed_in_version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(ability_id"/>
+      <foreign-key name="#FAKE_ability_changelog_1" columns="changed_in_version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_ability_changelog_2" columns="ability_id" ref-table="abilities" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="ability_changelog_prose" schema="" catalog="" type="TABLE">
+      <column name="ability_changelog_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effect" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="ability_changelog_id,local_language_id"/>
+      <foreign-key name="#FAKE_ability_changelog_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_ability_changelog_prose_2" columns="ability_changelog_id" ref-table="ability_changelog" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="ability_flavor_text" schema="" catalog="" type="TABLE">
+      <column name="ability_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_text" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="ability_id,version_group_id,language_id"/>
+      <foreign-key name="#FAKE_ability_flavor_text_1" columns="language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_ability_flavor_text_2" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_ability_flavor_text_3" columns="ability_id" ref-table="abilities" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="ability_names" schema="" catalog="" type="TABLE">
+      <column name="ability_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="ability_id,local_language_id"/>
+      <foreign-key name="#FAKE_ability_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_ability_names_2" columns="ability_id" ref-table="abilities" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_ability_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="ability_prose" schema="" catalog="" type="TABLE">
+      <column name="ability_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effect" sqlType="VARCHAR(5120)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="short_effect" sqlType="VARCHAR(512)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="ability_id,local_language_id"/>
+      <foreign-key name="#FAKE_ability_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_ability_prose_2" columns="ability_id" ref-table="abilities" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="berries" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="firmness_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="natural_gift_power" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="natural_gift_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="size" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="max_harvest" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="growth_time" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="soil_dryness" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="smoothness" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(item_id"/>
+      <foreign-key name="#FAKE_berries_1" columns="natural_gift_type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_berries_2" columns="firmness_id" ref-table="berry_firmness" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_berries_3" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="berry_firmness" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="berry_firmness_names" schema="" catalog="" type="TABLE">
+      <column name="berry_firmness_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="berry_firmness_id,local_language_id"/>
+      <foreign-key name="#FAKE_berry_firmness_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_berry_firmness_names_2" columns="berry_firmness_id" ref-table="berry_firmness" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_berry_firmness_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="berry_flavors" schema="" catalog="" type="TABLE">
+      <column name="berry_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="contest_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="berry_id,contest_type_id"/>
+      <foreign-key name="#FAKE_berry_flavors_1" columns="contest_type_id" ref-table="contest_types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_berry_flavors_2" columns="berry_id" ref-table="berries" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_episode_names" schema="" catalog="" type="TABLE">
+      <column name="episode_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(30)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="episode_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_episode_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_episode_names_2" columns="episode_id" ref-table="conquest_episodes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_conquest_episode_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="conquest_episode_warriors" schema="" catalog="" type="TABLE">
+      <column name="episode_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="warrior_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="episode_id,warrior_id"/>
+      <foreign-key name="#FAKE_conquest_episode_warriors_1" columns="warrior_id" ref-table="conquest_warriors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_episode_warriors_2" columns="episode_id" ref-table="conquest_episodes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_episodes" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(30)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="conquest_kingdom_names" schema="" catalog="" type="TABLE">
+      <column name="kingdom_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(9)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="kingdom_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_kingdom_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_kingdom_names_2" columns="kingdom_id" ref-table="conquest_kingdoms" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_conquest_kingdom_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="conquest_kingdoms" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(9)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(type_id"/>
+      <foreign-key name="#FAKE_conquest_kingdoms_1" columns="type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_max_links" schema="" catalog="" type="TABLE">
+      <column name="warrior_rank_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="max_link" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="warrior_rank_id,pokemon_species_id"/>
+      <foreign-key name="#FAKE_conquest_max_links_1" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_max_links_2" columns="warrior_rank_id" ref-table="conquest_warrior_ranks" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_move_data" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="power" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="accuracy" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="effect_chance" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="range_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="displacement_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="move_id),foreign key(move_id"/>
+      <foreign-key name="#FAKE_conquest_move_data_1" columns="displacement_id" ref-table="conquest_move_displacements" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_move_data_2" columns="range_id" ref-table="conquest_move_ranges" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_move_data_3" columns="effect_id" ref-table="conquest_move_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_move_data_4" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_move_displacement_prose" schema="" catalog="" type="TABLE">
+      <column name="move_displacement_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="short_effect" sqlType="VARCHAR(128)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="effect" sqlType="VARCHAR(256)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="move_displacement_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_move_displacement_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_move_displacement_prose_2" columns="move_displacement_id" ref-table="conquest_move_displacements" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_move_displacements" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(18)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="affects_target" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),check (affects_target in (0,1"/>
+    </table>
+    <table name="conquest_move_effect_prose" schema="" catalog="" type="TABLE">
+      <column name="conquest_move_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="short_effect" sqlType="VARCHAR(256)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="effect" sqlType="VARCHAR(5120)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="conquest_move_effect_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_move_effect_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_move_effect_prose_2" columns="conquest_move_effect_id" ref-table="conquest_move_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_move_effects" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="conquest_move_range_prose" schema="" catalog="" type="TABLE">
+      <column name="conquest_move_range_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR(256)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="conquest_move_range_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_move_range_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_move_range_prose_2" columns="conquest_move_range_id" ref-table="conquest_move_ranges" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_move_ranges" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="targets" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="conquest_pokemon_abilities" schema="" catalog="" type="TABLE">
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="slot" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="ability_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_species_id,slot"/>
+      <foreign-key name="#FAKE_conquest_pokemon_abilities_1" columns="ability_id" ref-table="abilities" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_pokemon_abilities_2" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_pokemon_evolution" schema="" catalog="" type="TABLE">
+      <column name="evolved_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="required_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="minimum_stat" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="minimum_link" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="kingdom_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="warrior_gender_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="recruiting_ko_required" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="evolved_species_id),foreign key(evolved_species_id"/>
+      <foreign-key name="#FAKE_conquest_pokemon_evolution_1" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_pokemon_evolution_2" columns="warrior_gender_id" ref-table="genders" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_pokemon_evolution_3" columns="kingdom_id" ref-table="conquest_kingdoms" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_pokemon_evolution_4" columns="required_stat_id" ref-table="conquest_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_pokemon_evolution_5" columns="evolved_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_pokemon_moves" schema="" catalog="" type="TABLE">
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_species_id),foreign key(pokemon_species_id"/>
+      <foreign-key name="#FAKE_conquest_pokemon_moves_1" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_pokemon_moves_2" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_pokemon_stats" schema="" catalog="" type="TABLE">
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="conquest_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="base_stat" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_species_id,conquest_stat_id"/>
+      <foreign-key name="#FAKE_conquest_pokemon_stats_1" columns="conquest_stat_id" ref-table="conquest_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_pokemon_stats_2" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_stat_names" schema="" catalog="" type="TABLE">
+      <column name="conquest_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="conquest_stat_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_stat_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_stat_names_2" columns="conquest_stat_id" ref-table="conquest_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_conquest_stat_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="conquest_stats" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(7)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="is_base" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),check (is_base in (0,1"/>
+    </table>
+    <table name="conquest_transformation_pokemon" schema="" catalog="" type="TABLE">
+      <column name="transformation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="transformation_id,pokemon_species_id"/>
+      <foreign-key name="#FAKE_conquest_transformation_pokemon_1" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_transformation_pokemon_2" columns="transformation_id" ref-table="conquest_warrior_transformation" ref-schema="" ref-catalog="" ref-columns="transformed_warrior_rank_id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_transformation_warriors" schema="" catalog="" type="TABLE">
+      <column name="transformation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="present_warrior_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="transformation_id,present_warrior_id"/>
+      <foreign-key name="#FAKE_conquest_transformation_warriors_1" columns="present_warrior_id" ref-table="conquest_warriors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_transformation_warriors_2" columns="transformation_id" ref-table="conquest_warrior_transformation" ref-schema="" ref-catalog="" ref-columns="transformed_warrior_rank_id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_warrior_archetypes" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(15)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="conquest_warrior_names" schema="" catalog="" type="TABLE">
+      <column name="warrior_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="warrior_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_warrior_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_names_2" columns="warrior_id" ref-table="conquest_warriors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_conquest_warrior_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="conquest_warrior_rank_stat_map" schema="" catalog="" type="TABLE">
+      <column name="warrior_rank_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="warrior_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="base_stat" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="warrior_rank_id,warrior_stat_id"/>
+      <foreign-key name="#FAKE_conquest_warrior_rank_stat_map_1" columns="warrior_stat_id" ref-table="conquest_warrior_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_rank_stat_map_2" columns="warrior_rank_id" ref-table="conquest_warrior_ranks" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_warrior_ranks" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="warrior_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="rank" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="skill_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),unique (warrior_id,rank"/>
+      <foreign-key name="#FAKE_conquest_warrior_ranks_1" columns="skill_id" ref-table="conquest_warrior_skills" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_ranks_2" columns="warrior_id" ref-table="conquest_warriors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_warrior_skill_names" schema="" catalog="" type="TABLE">
+      <column name="skill_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(15)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="skill_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_warrior_skill_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_skill_names_2" columns="skill_id" ref-table="conquest_warrior_skills" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_conquest_warrior_skill_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="conquest_warrior_skills" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(15)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="conquest_warrior_specialties" schema="" catalog="" type="TABLE">
+      <column name="warrior_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="slot" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="warrior_id,type_id,slot"/>
+      <foreign-key name="#FAKE_conquest_warrior_specialties_1" columns="type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_specialties_2" columns="warrior_id" ref-table="conquest_warriors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_warrior_stat_names" schema="" catalog="" type="TABLE">
+      <column name="warrior_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(15)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="warrior_stat_id,local_language_id"/>
+      <foreign-key name="#FAKE_conquest_warrior_stat_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_stat_names_2" columns="warrior_stat_id" ref-table="conquest_warrior_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_conquest_warrior_stat_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="conquest_warrior_stats" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="conquest_warrior_transformation" schema="" catalog="" type="TABLE">
+      <column name="transformed_warrior_rank_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_automatic" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="required_link" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="completed_episode_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="current_episode_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="distant_warrior_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="female_warlord_count" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="pokemon_count" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="collection_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="warrior_count" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="transformed_warrior_rank_id),foreign key(transformed_warrior_rank_id"/>
+      <foreign-key name="#FAKE_conquest_warrior_transformation_1" columns="collection_type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_transformation_2" columns="distant_warrior_id" ref-table="conquest_warriors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_transformation_3" columns="current_episode_id" ref-table="conquest_episodes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_transformation_4" columns="completed_episode_id" ref-table="conquest_episodes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warrior_transformation_5" columns="transformed_warrior_rank_id" ref-table="conquest_warrior_ranks" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="conquest_warriors" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="gender_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="archetype_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(gender_id"/>
+      <foreign-key name="#FAKE_conquest_warriors_1" columns="archetype_id" ref-table="conquest_warrior_archetypes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_conquest_warriors_2" columns="gender_id" ref-table="genders" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="contest_combos" schema="" catalog="" type="TABLE">
+      <column name="first_move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="second_move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="first_move_id,second_move_id"/>
+      <foreign-key name="#FAKE_contest_combos_1" columns="second_move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_contest_combos_2" columns="first_move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="contest_effect_prose" schema="" catalog="" type="TABLE">
+      <column name="contest_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_text" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="effect" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="contest_effect_id,local_language_id"/>
+      <foreign-key name="#FAKE_contest_effect_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_contest_effect_prose_2" columns="contest_effect_id" ref-table="contest_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="contest_effects" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="appeal" sqlType="SMALLINT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="jam" sqlType="SMALLINT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="contest_type_names" schema="" catalog="" type="TABLE">
+      <column name="contest_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(6)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="flavor" sqlType="VARCHAR(6)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="color" sqlType="VARCHAR(6)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="contest_type_id,local_language_id"/>
+      <foreign-key name="#FAKE_contest_type_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_contest_type_names_2" columns="contest_type_id" ref-table="contest_types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_contest_type_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="contest_types" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(6)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="egg_group_prose" schema="" catalog="" type="TABLE">
+      <column name="egg_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="egg_group_id,local_language_id"/>
+      <foreign-key name="#FAKE_egg_group_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_egg_group_prose_2" columns="egg_group_id" ref-table="egg_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_egg_group_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="egg_groups" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="encounter_condition_prose" schema="" catalog="" type="TABLE">
+      <column name="encounter_condition_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="encounter_condition_id,local_language_id"/>
+      <foreign-key name="#FAKE_encounter_condition_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounter_condition_prose_2" columns="encounter_condition_id" ref-table="encounter_conditions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_encounter_condition_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="encounter_condition_value_map" schema="" catalog="" type="TABLE">
+      <column name="encounter_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="encounter_condition_value_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="encounter_id,encounter_condition_value_id"/>
+      <foreign-key name="#FAKE_encounter_condition_value_map_1" columns="encounter_condition_value_id" ref-table="encounter_condition_values" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounter_condition_value_map_2" columns="encounter_id" ref-table="encounters" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="encounter_condition_value_prose" schema="" catalog="" type="TABLE">
+      <column name="encounter_condition_value_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="encounter_condition_value_id,local_language_id"/>
+      <foreign-key name="#FAKE_encounter_condition_value_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounter_condition_value_prose_2" columns="encounter_condition_value_id" ref-table="encounter_condition_values" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_encounter_condition_value_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="encounter_condition_values" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="encounter_condition_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="is_default" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(encounter_condition_id"/>
+      <foreign-key name="#FAKE_encounter_condition_values_1" columns="encounter_condition_id" ref-table="encounter_conditions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="encounter_conditions" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="encounter_method_prose" schema="" catalog="" type="TABLE">
+      <column name="encounter_method_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="encounter_method_id,local_language_id"/>
+      <foreign-key name="#FAKE_encounter_method_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounter_method_prose_2" columns="encounter_method_id" ref-table="encounter_methods" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_encounter_method_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="encounter_methods" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="order" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),unique (identifier"/>
+    </table>
+    <table name="encounter_slots" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="encounter_method_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="slot" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="rarity" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(version_group_id"/>
+      <foreign-key name="#FAKE_encounter_slots_1" columns="encounter_method_id" ref-table="encounter_methods" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounter_slots_2" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="encounters" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="location_area_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="encounter_slot_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="min_level" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="max_level" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(version_id"/>
+      <foreign-key name="#FAKE_encounters_1" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounters_2" columns="encounter_slot_id" ref-table="encounter_slots" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounters_3" columns="location_area_id" ref-table="location_areas" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_encounters_4" columns="version_id" ref-table="versions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="evolution_chains" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="baby_trigger_item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(baby_trigger_item_id"/>
+      <foreign-key name="#FAKE_evolution_chains_1" columns="baby_trigger_item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="evolution_trigger_prose" schema="" catalog="" type="TABLE">
+      <column name="evolution_trigger_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="evolution_trigger_id,local_language_id"/>
+      <foreign-key name="#FAKE_evolution_trigger_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_evolution_trigger_prose_2" columns="evolution_trigger_id" ref-table="evolution_triggers" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_evolution_trigger_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="evolution_triggers" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="experience" schema="" catalog="" type="TABLE">
+      <column name="growth_rate_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="level" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="experience" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="growth_rate_id,level"/>
+      <foreign-key name="#FAKE_experience_1" columns="growth_rate_id" ref-table="growth_rates" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="genders" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="generation_names" schema="" catalog="" type="TABLE">
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="generation_id,local_language_id"/>
+      <foreign-key name="#FAKE_generation_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_generation_names_2" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_generation_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="generations" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="main_region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="canonical_pokedex_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id),foreign key(main_region_id"/>
+      <foreign-key name="#FAKE_generations_1" columns="canonical_pokedex_id" ref-table="pokedexes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_generations_2" columns="main_region_id" ref-table="regions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="growth_rate_prose" schema="" catalog="" type="TABLE">
+      <column name="growth_rate_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="growth_rate_id,local_language_id"/>
+      <foreign-key name="#FAKE_growth_rate_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_growth_rate_prose_2" columns="growth_rate_id" ref-table="growth_rates" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_growth_rate_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="growth_rates" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="formula" sqlType="VARCHAR(500)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="item_categories" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pocket_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id),foreign key(pocket_id"/>
+      <foreign-key name="#FAKE_item_categories_1" columns="pocket_id" ref-table="item_pockets" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="item_category_prose" schema="" catalog="" type="TABLE">
+      <column name="item_category_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="item_category_id,local_language_id"/>
+      <foreign-key name="#FAKE_item_category_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_category_prose_2" columns="item_category_id" ref-table="item_categories" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_item_category_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="item_flag_map" schema="" catalog="" type="TABLE">
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="item_flag_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="item_id,item_flag_id"/>
+      <foreign-key name="#FAKE_item_flag_map_1" columns="item_flag_id" ref-table="item_flags" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_flag_map_2" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="item_flag_prose" schema="" catalog="" type="TABLE">
+      <column name="item_flag_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="item_flag_id,local_language_id"/>
+      <foreign-key name="#FAKE_item_flag_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_flag_prose_2" columns="item_flag_id" ref-table="item_flags" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_item_flag_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="item_flags" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="item_flavor_summaries" schema="" catalog="" type="TABLE">
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_summary" sqlType="VARCHAR(512)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="item_id,local_language_id"/>
+      <foreign-key name="#FAKE_item_flavor_summaries_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_flavor_summaries_2" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="item_flavor_text" schema="" catalog="" type="TABLE">
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_text" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="item_id,version_group_id,language_id"/>
+      <foreign-key name="#FAKE_item_flavor_text_1" columns="language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_flavor_text_2" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_flavor_text_3" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="item_fling_effect_prose" schema="" catalog="" type="TABLE">
+      <column name="item_fling_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effect" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="item_fling_effect_id,local_language_id"/>
+      <foreign-key name="#FAKE_item_fling_effect_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_fling_effect_prose_2" columns="item_fling_effect_id" ref-table="item_fling_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="item_fling_effects" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="item_game_indices" schema="" catalog="" type="TABLE">
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="game_index" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="item_id,generation_id"/>
+      <foreign-key name="#FAKE_item_game_indices_1" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_game_indices_2" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="item_names" schema="" catalog="" type="TABLE">
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="item_id,local_language_id"/>
+      <foreign-key name="#FAKE_item_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_names_2" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_item_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="item_pocket_names" schema="" catalog="" type="TABLE">
+      <column name="item_pocket_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="item_pocket_id,local_language_id"/>
+      <foreign-key name="#FAKE_item_pocket_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_pocket_names_2" columns="item_pocket_id" ref-table="item_pockets" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_item_pocket_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="item_pockets" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="item_prose" schema="" catalog="" type="TABLE">
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="short_effect" sqlType="VARCHAR(256)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="effect" sqlType="VARCHAR(5120)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="item_id,local_language_id"/>
+      <foreign-key name="#FAKE_item_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_item_prose_2" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="items" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="category_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="cost" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="fling_power" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="fling_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(category_id"/>
+      <foreign-key name="#FAKE_items_1" columns="fling_effect_id" ref-table="item_fling_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_items_2" columns="category_id" ref-table="item_categories" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="language_names" schema="" catalog="" type="TABLE">
+      <column name="language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="language_id,local_language_id"/>
+      <foreign-key name="#FAKE_language_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_language_names_2" columns="language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_language_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="languages" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="iso639" sqlType="VARCHAR(2)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="iso3166" sqlType="VARCHAR(2)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="official" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="order" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),check (official in (0,1"/>
+      <index name="ix_languages_official" unique="true" columns="official"/>
+    </table>
+    <table name="location_area_encounter_rates" schema="" catalog="" type="TABLE">
+      <column name="location_area_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="encounter_method_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="rate" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="location_area_id,encounter_method_id,version_id"/>
+      <foreign-key name="#FAKE_location_area_encounter_rates_1" columns="version_id" ref-table="versions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_location_area_encounter_rates_2" columns="encounter_method_id" ref-table="encounter_methods" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_location_area_encounter_rates_3" columns="location_area_id" ref-table="location_areas" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="location_area_prose" schema="" catalog="" type="TABLE">
+      <column name="location_area_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="location_area_id,local_language_id"/>
+      <foreign-key name="#FAKE_location_area_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_location_area_prose_2" columns="location_area_id" ref-table="location_areas" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_location_area_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="location_areas" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="location_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="game_index" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="id),foreign key(location_id"/>
+      <foreign-key name="#FAKE_location_areas_1" columns="location_id" ref-table="locations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="location_game_indices" schema="" catalog="" type="TABLE">
+      <column name="location_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="game_index" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="location_id,generation_id,game_index"/>
+      <foreign-key name="#FAKE_location_game_indices_1" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_location_game_indices_2" columns="location_id" ref-table="locations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="location_names" schema="" catalog="" type="TABLE">
+      <column name="location_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="location_id,local_language_id"/>
+      <foreign-key name="#FAKE_location_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_location_names_2" columns="location_id" ref-table="locations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_location_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="locations" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id),foreign key(region_id"/>
+      <foreign-key name="#FAKE_locations_1" columns="region_id" ref-table="regions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="machines" schema="" catalog="" type="TABLE">
+      <column name="machine_number" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="machine_number,version_group_id"/>
+      <foreign-key name="#FAKE_machines_1" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_machines_2" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_machines_3" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_battle_style_prose" schema="" catalog="" type="TABLE">
+      <column name="move_battle_style_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="move_battle_style_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_battle_style_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_battle_style_prose_2" columns="move_battle_style_id" ref-table="move_battle_styles" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_battle_style_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="move_battle_styles" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="move_changelog" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="changed_in_version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="power" sqlType="SMALLINT" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="pp" sqlType="SMALLINT" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="accuracy" sqlType="SMALLINT" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="effect_chance" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="move_id,changed_in_version_group_id"/>
+      <foreign-key name="#FAKE_move_changelog_1" columns="effect_id" ref-table="move_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_changelog_2" columns="type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_changelog_3" columns="changed_in_version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_changelog_4" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_damage_class_prose" schema="" catalog="" type="TABLE">
+      <column name="move_damage_class_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="move_damage_class_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_damage_class_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_damage_class_prose_2" columns="move_damage_class_id" ref-table="move_damage_classes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_damage_class_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="move_damage_classes" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="move_effect_changelog" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="changed_in_version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),unique (effect_id,changed_in_version_group_id"/>
+      <foreign-key name="#FAKE_move_effect_changelog_1" columns="changed_in_version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_effect_changelog_2" columns="effect_id" ref-table="move_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_effect_changelog_prose" schema="" catalog="" type="TABLE">
+      <column name="move_effect_changelog_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effect" sqlType="VARCHAR(512)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="move_effect_changelog_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_effect_changelog_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_effect_changelog_prose_2" columns="move_effect_changelog_id" ref-table="move_effect_changelog" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_effect_prose" schema="" catalog="" type="TABLE">
+      <column name="move_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="short_effect" sqlType="VARCHAR(256)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="effect" sqlType="VARCHAR(5120)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="move_effect_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_effect_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_effect_prose_2" columns="move_effect_id" ref-table="move_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_effects" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="move_flag_map" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="move_flag_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="move_id,move_flag_id"/>
+      <foreign-key name="#FAKE_move_flag_map_1" columns="move_flag_id" ref-table="move_flags" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_flag_map_2" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_flag_prose" schema="" catalog="" type="TABLE">
+      <column name="move_flag_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR(256)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="move_flag_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_flag_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_flag_prose_2" columns="move_flag_id" ref-table="move_flags" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_flag_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="move_flags" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="move_flavor_summaries" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_summary" sqlType="VARCHAR(512)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="move_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_flavor_summaries_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_flavor_summaries_2" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_flavor_text" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_text" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="move_id,version_group_id,language_id"/>
+      <foreign-key name="#FAKE_move_flavor_text_1" columns="language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_flavor_text_2" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_flavor_text_3" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_meta" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="meta_category_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="meta_ailment_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="min_hits" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="max_hits" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="min_turns" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="max_turns" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="recoil" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="healing" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="crit_rate" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="ailment_chance" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flinch_chance" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="stat_chance" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="move_id),foreign key(move_id"/>
+      <foreign-key name="#FAKE_move_meta_1" columns="meta_ailment_id" ref-table="move_meta_ailments" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_meta_2" columns="meta_category_id" ref-table="move_meta_categories" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_meta_3" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_meta_ailment_chance" unique="true" columns="ailment_chance"/>
+      <index name="ix_move_meta_crit_rate" unique="true" columns="crit_rate"/>
+      <index name="ix_move_meta_max_hits" unique="true" columns="max_hits"/>
+      <index name="ix_move_meta_recoil" unique="true" columns="recoil"/>
+      <index name="ix_move_meta_min_turns" unique="true" columns="min_turns"/>
+      <index name="ix_move_meta_healing" unique="true" columns="healing"/>
+      <index name="ix_move_meta_flinch_chance" unique="true" columns="flinch_chance"/>
+      <index name="ix_move_meta_max_turns" unique="true" columns="max_turns"/>
+      <index name="ix_move_meta_stat_chance" unique="true" columns="stat_chance"/>
+      <index name="ix_move_meta_min_hits" unique="true" columns="min_hits"/>
+    </table>
+    <table name="move_meta_ailment_names" schema="" catalog="" type="TABLE">
+      <column name="move_meta_ailment_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="move_meta_ailment_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_meta_ailment_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_meta_ailment_names_2" columns="move_meta_ailment_id" ref-table="move_meta_ailments" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_meta_ailment_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="move_meta_ailments" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <index name="ix_move_meta_ailments_identifier" unique="true" columns="identifier"/>
+    </table>
+    <table name="move_meta_categories" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <index name="ix_move_meta_categories_identifier" unique="true" columns="identifier"/>
+    </table>
+    <table name="move_meta_category_prose" schema="" catalog="" type="TABLE">
+      <column name="move_meta_category_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="description" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="move_meta_category_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_meta_category_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_meta_category_prose_2" columns="move_meta_category_id" ref-table="move_meta_categories" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="move_meta_stat_changes" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="change" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="move_id,stat_id"/>
+      <foreign-key name="#FAKE_move_meta_stat_changes_1" columns="stat_id" ref-table="stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_meta_stat_changes_2" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_meta_stat_changes_change" unique="true" columns="change"/>
+    </table>
+    <table name="move_names" schema="" catalog="" type="TABLE">
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="move_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_names_2" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="move_target_prose" schema="" catalog="" type="TABLE">
+      <column name="move_target_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR(128)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="move_target_id,local_language_id"/>
+      <foreign-key name="#FAKE_move_target_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_move_target_prose_2" columns="move_target_id" ref-table="move_targets" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_move_target_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="move_targets" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="moves" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="power" sqlType="SMALLINT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pp" sqlType="SMALLINT" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="accuracy" sqlType="SMALLINT" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="priority" sqlType="SMALLINT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="target_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="damage_class_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effect_chance" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="contest_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="contest_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="super_contest_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(generation_id"/>
+      <foreign-key name="#FAKE_moves_1" columns="super_contest_effect_id" ref-table="super_contest_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_moves_2" columns="contest_effect_id" ref-table="contest_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_moves_3" columns="contest_type_id" ref-table="contest_types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_moves_4" columns="effect_id" ref-table="move_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_moves_5" columns="damage_class_id" ref-table="move_damage_classes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_moves_6" columns="target_id" ref-table="move_targets" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_moves_7" columns="type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_moves_8" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="nature_battle_style_preferences" schema="" catalog="" type="TABLE">
+      <column name="nature_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="move_battle_style_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="low_hp_preference" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="high_hp_preference" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="nature_id,move_battle_style_id"/>
+      <foreign-key name="#FAKE_nature_battle_style_preferences_1" columns="move_battle_style_id" ref-table="move_battle_styles" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_nature_battle_style_preferences_2" columns="nature_id" ref-table="natures" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="nature_names" schema="" catalog="" type="TABLE">
+      <column name="nature_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="nature_id,local_language_id"/>
+      <foreign-key name="#FAKE_nature_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_nature_names_2" columns="nature_id" ref-table="natures" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_nature_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="nature_pokeathlon_stats" schema="" catalog="" type="TABLE">
+      <column name="nature_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokeathlon_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="max_change" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="nature_id,pokeathlon_stat_id"/>
+      <foreign-key name="#FAKE_nature_pokeathlon_stats_1" columns="pokeathlon_stat_id" ref-table="pokeathlon_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_nature_pokeathlon_stats_2" columns="nature_id" ref-table="natures" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="natures" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="decreased_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="increased_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="hates_flavor_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="likes_flavor_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(decreased_stat_id"/>
+      <foreign-key name="#FAKE_natures_1" columns="likes_flavor_id" ref-table="contest_types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_natures_2" columns="hates_flavor_id" ref-table="contest_types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_natures_3" columns="increased_stat_id" ref-table="stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_natures_4" columns="decreased_stat_id" ref-table="stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pal_park" schema="" catalog="" type="TABLE">
+      <column name="species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="area_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="base_score" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="rate" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="species_id),foreign key(species_id"/>
+      <foreign-key name="#FAKE_pal_park_1" columns="area_id" ref-table="pal_park_areas" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pal_park_2" columns="species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pal_park_area_names" schema="" catalog="" type="TABLE">
+      <column name="pal_park_area_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="pal_park_area_id,local_language_id"/>
+      <foreign-key name="#FAKE_pal_park_area_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pal_park_area_names_2" columns="pal_park_area_id" ref-table="pal_park_areas" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pal_park_area_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="pal_park_areas" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="pokeathlon_stat_names" schema="" catalog="" type="TABLE">
+      <column name="pokeathlon_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="pokeathlon_stat_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokeathlon_stat_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokeathlon_stat_names_2" columns="pokeathlon_stat_id" ref-table="pokeathlon_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokeathlon_stat_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="pokeathlon_stats" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(8)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="pokedex_prose" schema="" catalog="" type="TABLE">
+      <column name="pokedex_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR(512)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="pokedex_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokedex_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokedex_prose_2" columns="pokedex_id" ref-table="pokedexes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokedex_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="pokedexes" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="is_main_series" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(region_id"/>
+      <foreign-key name="#FAKE_pokedexes_1" columns="region_id" ref-table="regions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="height" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="weight" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="base_experience" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="order" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_default" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(species_id"/>
+      <foreign-key name="#FAKE_pokemon_1" columns="species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_is_default" unique="true" columns="is_default"/>
+      <index name="ix_pokemon_order" unique="true" columns="order"/>
+    </table>
+    <table name="pokemon_abilities" schema="" catalog="" type="TABLE">
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="ability_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_hidden" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="slot" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_id,slot"/>
+      <foreign-key name="#FAKE_pokemon_abilities_1" columns="ability_id" ref-table="abilities" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_abilities_2" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_abilities_is_hidden" unique="true" columns="is_hidden"/>
+    </table>
+    <table name="pokemon_color_names" schema="" catalog="" type="TABLE">
+      <column name="pokemon_color_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="pokemon_color_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_color_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_color_names_2" columns="pokemon_color_id" ref-table="pokemon_colors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_color_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="pokemon_colors" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="pokemon_dex_numbers" schema="" catalog="" type="TABLE">
+      <column name="species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokedex_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokedex_number" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="species_id,pokedex_id"/>
+      <foreign-key name="#FAKE_pokemon_dex_numbers_1" columns="pokedex_id" ref-table="pokedexes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_dex_numbers_2" columns="species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_egg_groups" schema="" catalog="" type="TABLE">
+      <column name="species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="egg_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="species_id,egg_group_id"/>
+      <foreign-key name="#FAKE_pokemon_egg_groups_1" columns="egg_group_id" ref-table="egg_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_egg_groups_2" columns="species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_evolution" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="evolved_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="evolution_trigger_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="trigger_item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="minimum_level" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="gender_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="location_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="held_item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="time_of_day" sqlType="VARCHAR(5)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="known_move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="minimum_happiness" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="minimum_beauty" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="relative_physical_stats" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="party_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="trade_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(evolved_species_id"/>
+      <foreign-key name="#FAKE_pokemon_evolution_1" columns="trade_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_2" columns="party_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_3" columns="known_move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_4" columns="held_item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_5" columns="location_id" ref-table="locations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_6" columns="gender_id" ref-table="genders" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_7" columns="trigger_item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_8" columns="evolution_trigger_id" ref-table="evolution_triggers" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_evolution_9" columns="evolved_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_form_generations" schema="" catalog="" type="TABLE">
+      <column name="pokemon_form_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="game_index" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_form_id,generation_id"/>
+      <foreign-key name="#FAKE_pokemon_form_generations_1" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_form_generations_2" columns="pokemon_form_id" ref-table="pokemon_forms" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_form_names" schema="" catalog="" type="TABLE">
+      <column name="pokemon_form_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="form_name" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="pokemon_name" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="pokemon_form_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_form_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_form_names_2" columns="pokemon_form_id" ref-table="pokemon_forms" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_form_names_pokemon_name" unique="true" columns="pokemon_name"/>
+      <index name="ix_pokemon_form_names_form_name" unique="true" columns="form_name"/>
+    </table>
+    <table name="pokemon_form_pokeathlon_stats" schema="" catalog="" type="TABLE">
+      <column name="pokemon_form_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokeathlon_stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="minimum_stat" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="base_stat" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="maximum_stat" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_form_id,pokeathlon_stat_id"/>
+      <foreign-key name="#FAKE_pokemon_form_pokeathlon_stats_1" columns="pokeathlon_stat_id" ref-table="pokeathlon_stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_form_pokeathlon_stats_2" columns="pokemon_form_id" ref-table="pokemon_forms" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_forms" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="form_identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="introduced_in_version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="is_default" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_battle_only" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="form_order" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="order" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(pokemon_id"/>
+      <foreign-key name="#FAKE_pokemon_forms_1" columns="introduced_in_version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_forms_2" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_game_indices" schema="" catalog="" type="TABLE">
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="game_index" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_id,version_id"/>
+      <foreign-key name="#FAKE_pokemon_game_indices_1" columns="version_id" ref-table="versions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_game_indices_2" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_habitat_names" schema="" catalog="" type="TABLE">
+      <column name="pokemon_habitat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="pokemon_habitat_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_habitat_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_habitat_names_2" columns="pokemon_habitat_id" ref-table="pokemon_habitats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_habitat_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="pokemon_habitats" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="pokemon_items" schema="" catalog="" type="TABLE">
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="rarity" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_id,version_id,item_id"/>
+      <foreign-key name="#FAKE_pokemon_items_1" columns="item_id" ref-table="items" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_items_2" columns="version_id" ref-table="versions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_items_3" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_move_method_prose" schema="" catalog="" type="TABLE">
+      <column name="pokemon_move_method_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="pokemon_move_method_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_move_method_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_move_method_prose_2" columns="pokemon_move_method_id" ref-table="pokemon_move_methods" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_move_method_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="pokemon_move_methods" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="pokemon_moves" schema="" catalog="" type="TABLE">
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokemon_move_method_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="level" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="order" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="pokemon_id,version_group_id,move_id,pokemon_move_method_id,level"/>
+      <foreign-key name="#FAKE_pokemon_moves_1" columns="pokemon_move_method_id" ref-table="pokemon_move_methods" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_moves_2" columns="move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_moves_3" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_moves_4" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_moves_move_id" unique="true" columns="move_id"/>
+      <index name="ix_pokemon_moves_pokemon_move_method_id" unique="true" columns="pokemon_move_method_id"/>
+      <index name="ix_pokemon_moves_pokemon_id" unique="true" columns="pokemon_id"/>
+      <index name="ix_pokemon_moves_level" unique="true" columns="level"/>
+      <index name="ix_pokemon_moves_version_group_id" unique="true" columns="version_group_id"/>
+    </table>
+    <table name="pokemon_shape_prose" schema="" catalog="" type="TABLE">
+      <column name="pokemon_shape_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="awesome_name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="pokemon_shape_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_shape_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_shape_prose_2" columns="pokemon_shape_id" ref-table="pokemon_shapes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_shape_prose_name" unique="true" columns="name"/>
+    </table>
+    <table name="pokemon_shapes" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="pokemon_species" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="evolves_from_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="evolution_chain_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="color_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="shape_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="habitat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="gender_rate" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="capture_rate" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="base_happiness" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_baby" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="hatch_counter" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="has_gender_differences" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="growth_rate_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="forms_switchable" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="order" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="conquest_order" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(generation_id"/>
+      <foreign-key name="#FAKE_pokemon_species_1" columns="growth_rate_id" ref-table="growth_rates" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_2" columns="habitat_id" ref-table="pokemon_habitats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_3" columns="shape_id" ref-table="pokemon_shapes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_4" columns="color_id" ref-table="pokemon_colors" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_5" columns="evolution_chain_id" ref-table="evolution_chains" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_6" columns="evolves_from_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_7" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_species_conquest_order" unique="true" columns="conquest_order"/>
+      <index name="ix_pokemon_species_order" unique="true" columns="order"/>
+    </table>
+    <table name="pokemon_species_flavor_summaries" schema="" catalog="" type="TABLE">
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_summary" sqlType="VARCHAR(512)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="pokemon_species_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_species_flavor_summaries_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_flavor_summaries_2" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_species_flavor_text" schema="" catalog="" type="TABLE">
+      <column name="species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_text" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="species_id,version_id,language_id"/>
+      <foreign-key name="#FAKE_pokemon_species_flavor_text_1" columns="language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_flavor_text_2" columns="version_id" ref-table="versions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_flavor_text_3" columns="species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_species_names" schema="" catalog="" type="TABLE">
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="genus" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="pokemon_species_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_species_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_names_2" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_pokemon_species_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="pokemon_species_prose" schema="" catalog="" type="TABLE">
+      <column name="pokemon_species_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="form_description" sqlType="VARCHAR(1024)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <primary-key columns="pokemon_species_id,local_language_id"/>
+      <foreign-key name="#FAKE_pokemon_species_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_species_prose_2" columns="pokemon_species_id" ref-table="pokemon_species" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_stats" schema="" catalog="" type="TABLE">
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="base_stat" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="effort" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_id,stat_id"/>
+      <foreign-key name="#FAKE_pokemon_stats_1" columns="stat_id" ref-table="stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_stats_2" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="pokemon_types" schema="" catalog="" type="TABLE">
+      <column name="pokemon_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="slot" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="pokemon_id,slot"/>
+      <foreign-key name="#FAKE_pokemon_types_1" columns="type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_pokemon_types_2" columns="pokemon_id" ref-table="pokemon" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="region_names" schema="" catalog="" type="TABLE">
+      <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="region_id,local_language_id"/>
+      <foreign-key name="#FAKE_region_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_region_names_2" columns="region_id" ref-table="regions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_region_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="regions" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="stat_hint_names" schema="" catalog="" type="TABLE">
+      <column name="stat_hint_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="message" sqlType="VARCHAR(24)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="stat_hint_id,local_language_id"/>
+      <foreign-key name="#FAKE_stat_hint_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_stat_hint_names_2" columns="stat_hint_id" ref-table="stat_hints" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_stat_hint_names_message" unique="true" columns="message"/>
+    </table>
+    <table name="stat_hints" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="gene_mod_5" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id),foreign key(stat_id"/>
+      <foreign-key name="#FAKE_stat_hints_1" columns="stat_id" ref-table="stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_stat_hints_gene_mod_5" unique="true" columns="gene_mod_5"/>
+    </table>
+    <table name="stat_names" schema="" catalog="" type="TABLE">
+      <column name="stat_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="stat_id,local_language_id"/>
+      <foreign-key name="#FAKE_stat_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_stat_names_2" columns="stat_id" ref-table="stats" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_stat_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="stats" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="damage_class_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(16)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="is_battle_only" sqlType="BOOLEAN" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="game_index" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(damage_class_id"/>
+      <foreign-key name="#FAKE_stats_1" columns="damage_class_id" ref-table="move_damage_classes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="super_contest_combos" schema="" catalog="" type="TABLE">
+      <column name="first_move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="second_move_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="first_move_id,second_move_id"/>
+      <foreign-key name="#FAKE_super_contest_combos_1" columns="second_move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_super_contest_combos_2" columns="first_move_id" ref-table="moves" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="super_contest_effect_prose" schema="" catalog="" type="TABLE">
+      <column name="super_contest_effect_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="flavor_text" sqlType="VARCHAR(64)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="super_contest_effect_id,local_language_id"/>
+      <foreign-key name="#FAKE_super_contest_effect_prose_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_super_contest_effect_prose_2" columns="super_contest_effect_id" ref-table="super_contest_effects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="super_contest_effects" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="appeal" sqlType="SMALLINT" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="type_efficacy" schema="" catalog="" type="TABLE">
+      <column name="damage_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="target_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="damage_factor" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="damage_type_id,target_type_id"/>
+      <foreign-key name="#FAKE_type_efficacy_1" columns="target_type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_type_efficacy_2" columns="damage_type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="type_names" schema="" catalog="" type="TABLE">
+      <column name="type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(12)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="type_id,local_language_id"/>
+      <foreign-key name="#FAKE_type_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_type_names_2" columns="type_id" ref-table="types" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_type_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="types" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(12)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="damage_class_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(generation_id"/>
+      <foreign-key name="#FAKE_types_1" columns="damage_class_id" ref-table="move_damage_classes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_types_2" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="version_group_pokemon_move_methods" schema="" catalog="" type="TABLE">
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokemon_move_method_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="version_group_id,pokemon_move_method_id"/>
+      <foreign-key name="#FAKE_version_group_pokemon_move_methods_1" columns="pokemon_move_method_id" ref-table="pokemon_move_methods" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_version_group_pokemon_move_methods_2" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="version_group_regions" schema="" catalog="" type="TABLE">
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="version_group_id,region_id"/>
+      <foreign-key name="#FAKE_version_group_regions_1" columns="region_id" ref-table="regions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_version_group_regions_2" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="version_groups" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="generation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="pokedex_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="order" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id),foreign key(generation_id"/>
+      <foreign-key name="#FAKE_version_groups_1" columns="pokedex_id" ref-table="pokedexes" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_version_groups_2" columns="generation_id" ref-table="generations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="version_names" schema="" catalog="" type="TABLE">
+      <column name="version_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="local_language_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="version_id,local_language_id"/>
+      <foreign-key name="#FAKE_version_names_1" columns="local_language_id" ref-table="languages" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_version_names_2" columns="version_id" ref-table="versions" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ix_version_names_name" unique="true" columns="name"/>
+    </table>
+    <table name="versions" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="version_group_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="identifier" sqlType="VARCHAR(32)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id),foreign key(version_group_id"/>
+      <foreign-key name="#FAKE_versions_1" columns="version_group_id" ref-table="version_groups" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+  </data-source>
+</component>

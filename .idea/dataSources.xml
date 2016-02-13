@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1813813619">
+    <data-source source="LOCAL" name="Sqlite (Xerial) - pokedex.db" uuid="42084bb2-9e77-457f-b801-20ec15904165">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/pokedex.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
