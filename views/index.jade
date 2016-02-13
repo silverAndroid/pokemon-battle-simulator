@@ -1,0 +1,41 @@
+extends layout
+
+block content
+    div#error-message
+    div.bullseye.box-shadow-1.border-radius#main-container
+        div#top-screen
+            img#user-pokemon-img.absolute(style="bottom: 375px; left: 40px;")
+            div#user-name.absolute
+            div#user-lvl.absolute
+            div.absolute(style="width: 71px; top: 216px; left: 277px;")
+                div#user-hp.absolute
+            img.absolute(src="images/your_info.png" style="height: 45px; top: 187px; right: 10px;")
+
+            img#attack-img.absolute.hide(src="images/attack.png")
+
+            img#cpu-pokemon-img.absolute(style="bottom: 464px; right: 85px;")
+            div#cpu-name.absolute
+            div#cpu-lvl.absolute
+            div.absolute(style="width: 71px; top: 39px; left: 72px;")
+                div#cpu-hp.absolute
+            img.absolute(src="images/enemy_info.png" style="height: 45px; top: 10px; left: 10px;")
+            div#chat-text.absolute.text-subhead.hide
+        div#bottom-screen
+            div#button-area.hide
+                div#move-1-button.pointer(value="0")
+                    div#move-1-text.absolute.text-18.text-center
+                    img.absolute(src="images/move.png" style="height: 75px; bottom: 170px; left: 20px;")
+                div#move-2-button.pointer(value="1")
+                    div#move-2-text.absolute.text-18.text-center
+                    img.absolute(src="images/move.png" style="height: 75px; bottom: 170px; right: 20px")
+                div#move-3-button.pointer(value="2")
+                    div#move-3-text.absolute.text-18.text-center
+                    img.absolute(src="images/move.png" style="height: 75px; bottom: 75px; left: 20px;")
+                div#move-4-button.pointer(value="3")
+                    div#move-4-text.absolute.text-18.text-center
+                    img.absolute(src="images/move.png" style="height: 75px; bottom: 75px; right: 20px;")
+            div#game-over.absolute.text-30.text-center.hide.
+                GAME OVER
+            button#play-again.absolute.hide(type="reset" style="top: 462px; right: 162px;" onclick="init()").
+                Play again
+            img.img-spacing(src="images/toolbar_bg.png" style="width: 400px;")
