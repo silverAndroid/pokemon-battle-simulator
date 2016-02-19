@@ -181,12 +181,17 @@ var playerTurn = {
         };
 
         var setAilment = function (ailment, chance) {
-            console.log(ailment + " " + chance);
+            userPokemon[ailment] = ailment;
         };
 
         var changeStat = function (stat, change) {
             console.log(stat + " " + change);
-            userPokemon[stats_modified][stat] *= change;
+            // reduce stat
+            if (change < 0) {
+                userPokemon[stats_modified][stat]--;
+            } else {
+                userPokemon[stats_modified][stat]++;
+            }
         };
 
         var heal = function (percentage) {
@@ -196,7 +201,7 @@ var playerTurn = {
             }
             changeHPBar(userPokemon);
         };
-        
+
         var getAccuracy = function (accuracy) {
             var random = Math.random();
             return random <= (accuracy / 100);
