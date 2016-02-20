@@ -181,7 +181,9 @@ var playerTurn = {
         };
 
         var setAilment = function (ailment, chance) {
-            userPokemon[ailment] = ailment;
+            if (randomize(chance)) {
+                userPokemon[ailment] = ailment;
+            }
         };
 
         var changeStat = function (stat, change) {
@@ -203,8 +205,12 @@ var playerTurn = {
         };
 
         var getAccuracy = function (accuracy) {
+            return randomize(accuracy);
+        };
+
+        var randomize = function (chance) {
             var random = Math.random();
-            return random <= (accuracy / 100);
+            return random <= (chance / 100);
         };
 
         var getMoveType = function (category, ailment, chance) {
