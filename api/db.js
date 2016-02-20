@@ -2,7 +2,7 @@
  * Created by silver_android on 07/02/16.
  */
 
-var dbURL = 'postgres://localhost/pokedex?user=silver_android&password=pokemonxy3DS&ssl=true';
+var dbURL = process.env.DATABASE_URL;
 var db = require('pg-bricks').configure(dbURL);
 
 module.exports = {
