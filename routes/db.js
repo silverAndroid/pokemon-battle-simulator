@@ -9,6 +9,7 @@ var db = require('../api/db.js');
 router.get('/natures', function (req, res) {
     console.log('Loading natures table');
     db.getNatureStatChanges(req.query['index'], function (result) {
+        res.status(result['status']);
         res.json(result);
     });
 });
@@ -16,6 +17,7 @@ router.get('/natures', function (req, res) {
 router.get('/pokemon', function (req, res) {
     console.log('Loading pokemon table');
     db.getPokemon(req.query['level'], req.query['index'], function (result) {
+        res.status(result['status']);
         res.json(result);
     })
 });
@@ -23,6 +25,7 @@ router.get('/pokemon', function (req, res) {
 router.get('/pokemon/typeEff', function (req, res) {
     console.log('Loading pokemon type effectiveness table');
     db.getTypeEffectiveness(req.query['type1'], req.query['type2'], function (result) {
+        res.status(result['status']);
         res.json(result);
     })
 });
