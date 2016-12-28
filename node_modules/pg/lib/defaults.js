@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2010-2016 Brian Carlson (brian.m.carlson@gmail.com)
+ * All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * README.md file in the root directory of this source tree.
+ */
+
 var defaults = module.exports = {
   // database host. defaults to localhost
   host: 'localhost',
@@ -10,6 +18,11 @@ var defaults = module.exports = {
 
   //database user's password
   password: null,
+
+  // a Postgres connection string to be used instead of setting individual connection items
+  // NOTE:  Setting this value will cause it to override any other value (such as database or user) defined
+  // in the defaults object.
+  connectionString : undefined,
 
   //database port
   port: 5432,
@@ -33,6 +46,9 @@ var defaults = module.exports = {
   //frequency to check for idle clients within the client pool
   reapIntervalMillis: 1000,
 
+  //if true the most recently released resources will be the first to be allocated
+  returnToHead: false,
+
   //pool log function / boolean
   poolLog: false,
 
@@ -40,8 +56,10 @@ var defaults = module.exports = {
 
   ssl: false,
 
-  application_name : undefined,
-  fallback_application_name: undefined
+  application_name: undefined,
+  fallback_application_name: undefined,
+
+  parseInputDatesAsUTC: false
 };
 
 //parse int8 so you can get your count values as actual numbers
