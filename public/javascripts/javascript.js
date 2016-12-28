@@ -8,9 +8,11 @@ var cpuTurn = {
         var randomIndex = Math.floor(Math.random() * 4);
         var selectedMove = cpuPokemon.moves[randomIndex];
         var $attackImg = $("#attack-img");
+        var $chatText = $("#chat-text");
 
         var setUpCPUField = function () {
-            $("#chat-text").text("What will " + cpuPokemon.name + " do?");
+            $chatText.removeClass("hide");
+            $chatText.text("What will " + cpuPokemon.name + " do?");
             prepareToAttack();
         };
 
@@ -27,6 +29,7 @@ var cpuTurn = {
 
         var getAccuracy = function () {
             var accuracy = Math.random();
+            $chatText.removeClass("hide");
             if (accuracy <= selectedMove.accuracy / 100) {
                 $("#chat-text").text(cpuPokemon.name + " used " + selectedMove.name + "!");
                 getMoveType();
@@ -89,8 +92,6 @@ var playerTurn = {
 
             $("#button-area").removeClass("hide");
 
-            userPokemon.moves[0] = {name: 'Recover', meta_category: 'heal'};
-
             for (var i = 0; i < 4; i++) {
                 moveButtons[i].text(userPokemon.moves[i].name);
             }
@@ -101,34 +102,39 @@ var playerTurn = {
             selectedMove = userPokemon.moves[moveIndex];
             api.db.parseMove(selectedMove.name, function (response) {
                 if (response['status'] == 200) {
+                    $("#button-area").addClass("hide");
                     switch (response['meta_category']) {
                         case 'damage':
                             prepareToAttack(response['meta_category']);
                             break;
                         case 'ailment':
-                            setAilment(response['name']);
+                            setAilment(response['meta_ailment']);
+                            decideMove();
                             break;
                         case 'net-good-stats':
-                            changeStat(response['name']);
+                            changeStat(response['stat'], response['stat_change']);
+                            decideMove();
                             break;
                         case 'heal':
                             heal(response['healing']);
+                            decideMove();
                             break;
                         case 'damage+ailment':
-                            prepareToAttack(response['meta_category'], response['meta_ailment'],
-                                response['ailment_chance']);
+                            prepareToAttack(response['meta_category'], {
+                                ailment: response['meta_ailment'],
+                                chance: response['ailment_chance']
+                            });
                             break;
                         case 'damage+lower':
-                            prepareToAttack(response['meta_category'], response['name'],
-                                response['stat_chance']);
-                            break;
                         case 'damage+raise':
-                            prepareToAttack(response['meta_category'], response['name'],
-                                response['stat_chance']);
+                            prepareToAttack(response['meta_category'], {
+                                stat: response['stat'],
+                                change: response['stat_change'],
+                                chance: response['stat_chance']
+                            });
                             break;
                         case 'damage+heal':
-                            prepareToAttack(response['meta_category'], response['meta_ailment'],
-                                response['drain']);
+                            prepareToAttack(response['meta_category'], {drain: response['drain']});
                             break;
                         case 'swagger':
                             break;
@@ -151,16 +157,11 @@ var playerTurn = {
 
         /**
          *
-         * @param category comes from meta_category (damage, ailment, net-good-stats, heal, damage+ailment,
-         * swagger, damage+lower, damage+raise, damage+heal, ohko, whole-field-effect, field-effect,
-         * force-switch, unique)
-         * @param ailment comes from meta_ailment (unknown, none, paralysis, sleep, freeze, burn, poison,
-         * confusion, infatuation, trap, nightmare, torment, disable, yawn, heal-block, no-type-immunity,
-         * leech-seed, embargo, perish-song, ingrain) or name of move if it's a stat change
-         * @param chance probability that it occurs or amount that it will heal user by
+         * @param category comes from meta_category (damage, ailment, net-good-stats, heal, damage+ailment, swagger,
+         * damage+lower, damage+raise, damage+heal, ohko, whole-field-effect, field-effect, force-switch, unique)
+         * @param optional passes object with various attributes depending on category, used for method overloading
          */
-        var prepareToAttack = function (category, ailment, chance) {
-            $("#button-area").addClass("hide");
+        var prepareToAttack = function (category, optional) {
 
             $("#user-pokemon-img").animate({
                 bottom: "+=25"
@@ -170,9 +171,10 @@ var playerTurn = {
                 }, 200)
             });
 
+            $chatText.removeClass("hide");
             if (getAccuracy(selectedMove.accuracy)) {
                 $chatText.text(userPokemon.name + " used " + selectedMove.name + "!");
-                getMoveType(category, ailment, chance);
+                getMoveType(category, optional);
             } else {
                 $chatText.text(userPokemon.name + " missed with " + selectedMove.name + "!");
                 currentState = cpuTurn;
@@ -181,22 +183,45 @@ var playerTurn = {
         };
 
         var setAilment = function (ailment, chance) {
-            if (randomize(chance)) {
-                userPokemon[ailment] = ailment;
+            if (chance != undefined) {
+                if (randomize(chance)) {
+                    console.log('Ailment ' + ailment + ' added with chance of ' + chance + '%');
+                    userPokemon['ailment'] = ailment;
+                } else {
+                    console.log('Failed to add ailment ' + ailment);
+                }
+            } else {
+                console.log('Ailment ' + ailment + ' added');
+                userPokemon['ailment'] = ailment;
             }
         };
 
-        var changeStat = function (stat, change) {
-            console.log(stat + " " + change);
-            // reduce stat
-            if (change < 0) {
-                userPokemon[stats_modified][stat]--;
+        var changeStat = function (stat, change, chance) {
+            console.log(stat + " " + change + " " + chance);
+            if (chance != undefined) {
+                if (randomize(chance)) {
+                    console.log("Stat " + stat + " changed by " + change + " with chance of " + chance + "%");
+                    // reduce stat
+                    if (change < 0) {
+                        userPokemon['stats_modified'][stat]--;
+                    } else {
+                        userPokemon['stats_modified'][stat]++;
+                    }
+                } else {
+                    console.log('Failed to change stat ' + stat + ' by ' + change);
+                }
             } else {
-                userPokemon[stats_modified][stat]++;
+                console.log("Stat " + stat + " changed by " + change);
+                if (change < 0) {
+                    userPokemon['stats_modified'][stat]--;
+                } else {
+                    userPokemon['stats_modified'][stat]++;
+                }
             }
         };
 
         var heal = function (percentage) {
+            console.log('Increasing HP by ' + percentage + '%');
             userPokemon['health'] += percentage / 100 * userPokemon['stats']['hp'];
             if (userPokemon['health'] > userPokemon['stats']['hp']) {
                 userPokemon['health'] = userPokemon['stats']['hp'];
@@ -213,21 +238,21 @@ var playerTurn = {
             return random <= (chance / 100);
         };
 
-        var getMoveType = function (category, ailment, chance) {
+        var getMoveType = function (category, optional) {
             showMoveAnimation();
 
             if (category != 'damage') {
                 var extraCategory = category.split('+');
                 switch (extraCategory[1]) {
                     case 'ailment':
-                        setAilment(ailment, chance);
+                        setAilment(optional['ailment'], optional['chance']);
                         break;
                     case 'raise':
                     case 'lower':
-                        changeStat(ailment, chance);
+                        changeStat(optional['stat'], optional['change'], optional['chance']);
                         break;
                     case 'heal':
-                        heal(chance);
+                        heal(optional['drain']);
                         break;
                 }
             }
@@ -437,8 +462,17 @@ var generateStat = function (baseStat, IV, statName, level, nature) {
 var init = function () {
     $('#cpu-pokemon-img').addClass("hide");
     $('#user-pokemon-img').addClass("hide");
-    loadPokemon(cpuPokemon, Math.floor(Math.random() * 721 + 1), Math.floor(Math.random() * 100 + 1));
-    loadPokemon(userPokemon, Math.floor(Math.random() * 721 + 1), Math.floor(Math.random() * 100 + 1));
+    var cpuLevel = Math.floor(Math.random() * 100 + 1);
+    do {
+        var userLevel;
+        if (Math.random() < 0.5)
+            userLevel = cpuLevel + Math.floor(Math.random() * 5 + 1);
+        else
+            userLevel = cpuLevel - Math.floor(Math.random() * 5 + 1);
+    } while (userLevel > 100 || userLevel < 1);
+
+    loadPokemon(cpuPokemon, Math.floor(Math.random() * 721 + 1), cpuLevel);
+    loadPokemon(userPokemon, Math.floor(Math.random() * 721 + 1), userLevel);
     //loadPokemon(cpuPokemon, Math.floor(Math.random() * 721 + 1), 100);
     //loadPokemon(userPokemon, Math.floor(Math.random() * 721 + 1), 100);
 };
