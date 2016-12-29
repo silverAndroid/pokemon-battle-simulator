@@ -1,0 +1,307 @@
+/**
+ * Created by silver_android on 07/02/16.
+ */
+
+const when = require('when');
+const knex = require('knex')({
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    searchPath: 'pokedex'
+});
+const util = require('../util');
+
+let query = require('pg-query');
+query.connectionParameters = process.env.DATABASE_URL;
+
+let handleError = (err, callback, status = 500) => {
+    callback({
+        err,
+        status
+    });
+};
+
+let getNatureStatChanges = natureIndex => {
+    const getNatureChangesSQL = knex.select(['increased_stat_id', 'decreased_stat_id'])
+        .from('natures')
+        .where({
+            id: natureIndex
+        });
+
+    return query(getNatureChangesSQL.toString()); // TODO: change to a Promise
+};
+
+let generateStats = (value) => {
+    return [
+        {
+            name: 'HP',
+            value
+        },
+        {
+            name: 'Attack',
+            value
+        },
+        {
+            name: 'Defense',
+            value
+        },
+        {
+            name: 'Special Attack',
+            value
+        },
+        {
+            name: 'Special Defense',
+            value
+        },
+        {
+            name: 'Speed',
+            value
+        }
+    ];
+};
+
+let generateIVs = () => {
+    return new Promise((fulfill, reject) => {
+        let IVs = generateStats(0);
+        IVs.map(iv => {
+            iv.value = util.randomIntFromInterval(0, 32);
+        });
+        fulfill(IVs);
+    });
+};
+
+let calculateStat = (stat, iv, level, natureModifier) => {
+    let statValue = 0;
+    level = parseInt(level);
+    const effort = Math.floor(stat.effort / 4);
+    const multiplier = Math.floor(((2 * stat.value + iv.value + effort) * level) / 100);
+
+    if (stat.name == 'HP') {
+        statValue = multiplier + level + 10;
+    } else {
+        statValue = Math.floor((multiplier + 5) * natureModifier.value);
+    }
+
+    return statValue;
+};
+
+let generateMoves = moveArray => {
+    if (moveArray.length <= 4)
+        return moveArray;
+
+    let moves = [];
+    for (let i = 0; i < 4; i++) {
+        let randomIndex = util.randomIntFromInterval(0, moveArray.length);
+        moves.push(moveArray[randomIndex]);
+        moveArray.splice(randomIndex, 1);
+    }
+
+    return moves;
+};
+
+// TODO: Separate getPokemon into smaller methods
+module.exports.getPokemon = (level, index, callback) => {
+    if (!level || level < 1 || level > 100) {
+        console.log(level);
+        return handleError({
+            message: 'Invalid level'
+        }, callback, 400);
+    }
+    if (!index || index < 1 || (index > 721 && index < 10001) || index > 10090) {
+        console.log(index);
+        return handleError({
+            message: 'Invalid index'
+        }, callback, 400);
+    }
+
+    const getPokemonSQL = knex.select(['sname.name', 'stat_names.name AS stat_name', 'pokemon_stats.base_stat', 'pokemon_stats.effort'])
+        .from('pokemon')
+        .join('pokemon_species_names as sname', {'sname.pokemon_species_id': 'pokemon.id'})
+        .join('pokemon_stats', {'pokemon.id': 'pokemon_stats.pokemon_id'})
+        .join('stat_names', {'pokemon_stats.stat_id': 'stat_names.stat_id'})
+        .where({'pokemon.id': index, 'sname.local_language_id': 9, 'stat_names.local_language_id': 9});
+
+    const getMovesSQL = knex.select(['moves.power', 'moves.accuracy', 'type_names.name as type', 'move_damage_classes.identifier as damage_type', 'move_effect_prose.effect'])
+        .distinct('move_names.name')
+        .from('move_names')
+        .join('moves', {'moves.id': 'move_names.move_id'})
+        .join('move_effect_prose', {'moves.effect_id': 'move_effect_prose.move_effect_id'})
+        .join('pokemon_moves', {'pokemon_moves.move_id': 'moves.id'})
+        .join('pokemon', {'pokemon.id': 'pokemon_moves.pokemon_id'})
+        .join('pokemon_species', {'pokemon_species.id': 'pokemon.species_id'})
+        .join('pokemon_species_names as psname', {'psname.pokemon_species_id': 'pokemon_species.id'})
+        .join('type_names', {'type_names.type_id': 'moves.type_id'})
+        .join('move_damage_classes', {'moves.damage_class_id': 'move_damage_classes.id'})
+        .where({
+            'move_names.local_language_id': 9,
+            'type_names.local_language_id': 9,
+            'psname.local_language_id': 9,
+            'move_effect_prose.local_language_id': 9,
+            'pokemon_moves.version_group_id': 16,
+            'pokemon_moves.pokemon_move_method_id': 1,
+            'pokemon_moves.pokemon_id': index
+        })
+        .where('pokemon_moves.level', '<=', level);
+
+    const getPokemonTypeSQL = knex.select(['snames.name', 'tnames.name as type'])
+        .from('pokemon_species_names as snames')
+        .join('pokemon as p', {'p.species_id': 'snames.pokemon_species_id'})
+        .join('pokemon_types as pt', {'pt.pokemon_id': 'p.id'})
+        .join('type_names as tnames', {'pt.type_id': 'tnames.type_id'})
+        .where({
+            'tnames.local_language_id': 9,
+            'snames.local_language_id': 9,
+            'p.species_id': index
+        });
+
+    when.all([
+        query(getPokemonSQL.toString()),
+        query(getMovesSQL.toString()),
+        query(getPokemonTypeSQL.toString()),
+        getNatureStatChanges(util.randomIntFromInterval(1, 25)),
+        generateIVs()
+    ]).spread((pokemon, moves, type, statChanges, IVs) => {
+        pokemon = pokemon[0];
+        moves = moves[0];
+        type = type[0];
+        statChanges = statChanges[0][0];
+
+        let baseStats = [];
+        for (let i = 0; i < pokemon.length; i++) {
+            const row = pokemon[i];
+            const stat = {
+                name: row.stat_name,
+                value: row.base_stat,
+                effort: row.effort
+            };
+            baseStats.push(stat);
+        }
+
+        let statModifiers = generateStats(1);
+        statModifiers[statChanges.increased_stat_id - 1].value += 0.1;
+        statModifiers[statChanges.decreased_stat_id - 1].value -= 0.1;
+
+        let stats = baseStats;
+        for (let i = 0; i < stats.length; i++) {
+            stats[i].value = calculateStat(stats[i], IVs[i], level, statModifiers[i]);
+        }
+
+        let types = [];
+        const max = type.length > 2 ? 2 : type.length;
+        for (let i = 0; i < max; i++) {
+            types[i] = type[i].type;
+        }
+
+        moves = generateMoves(moves);
+
+        let data = {
+            name: pokemon[0].name,
+            level,
+            health: stats.hp,
+            stats,
+            moves: moves.map(move => {
+                return {
+                    name: move.name,
+                    accuracy: (move.accuracy == null ? 100 : move.accuracy),
+                    power: move.power,
+                    status: move.damage_type,
+                    type: move.type,
+                    effect: move.effect
+                }
+            }),
+            type: types,
+            err: null,
+            status: 200
+        };
+
+        callback(data);
+    }, err => {
+        handleError(err, callback);
+    });
+};
+
+module.exports.getTypeEffectiveness = (type1, type2, callback) => {
+    type1 = type1.toLowerCase();
+    if (type2 instanceof Array) {
+        for (let i = 0; i < type2.length; i++) {
+            type2[i] = type2[i].toLowerCase();
+        }
+    } else {
+        type2 = [type2.toLowerCase()];
+    }
+    console.log(`Type 1 = ${type1}, type 2 = ${type2}`);
+
+    let getType2EffectivenessSQL = knex.select('id')
+        .from('types')
+        .where({identifier: type2[0]});
+
+    for (let i = 1; i < type2.length; i++) {
+        getType2EffectivenessSQL = getType2EffectivenessSQL.orWhere({identifier: type2[i]});
+    }
+
+    const getEffectivenessSQL = knex.select(['damage_type_id', 'target_type_id', 'damage_factor'])
+        .from('type_efficacy')
+        .whereIn('damage_type_id',
+            knex.select('id')
+                .from('types')
+                .where({identifier: type1})
+        )
+        .whereIn('type_efficacy.target_type_id', getType2EffectivenessSQL);
+
+    console.log(getEffectivenessSQL.toString());
+
+    when.all([
+        query(getEffectivenessSQL.toString())
+    ]).spread(typeEffectiveness => {
+        let effectiveness = 1;
+        typeEffectiveness = typeEffectiveness[0];
+
+        for (let i = 0; i < typeEffectiveness.length; i++) {
+            effectiveness *= typeEffectiveness[i].damage_factor / 100;
+        }
+        callback({
+            status: 200,
+            err: null,
+            effectiveness
+        });
+    }, err => {
+        handleError(err, callback);
+    });
+};
+
+module.exports.parseMove = (name, callback) => {
+    console.log(("Move name = " + name));
+    var data = {};
+
+    const moveParseSQL = knex.select(['move_meta.move_id', 'move_meta_categories.identifier AS meta_category', 'move_meta_ailments.identifier AS meta_ailment', 'min_hits', 'max_hits', 'min_turns', 'max_turns', 'drain', 'healing', 'crit_rate', 'ailment_chance', 'flinch_chance', 'stat_chance'])
+        .from('move_meta')
+        .join('move_names', {'move_meta.move_id': 'move_names.move_id'})
+        .join('move_meta_categories', {'move_meta.meta_category_id': 'move_meta_categories.id'})
+        .join('move_meta_ailments', {'move_meta.meta_ailment_id': 'move_meta_ailments.id'})
+        .where({'move_names.name': name, 'move_names.local_language_id': 9});
+
+    const getStatChangerSQL = knex.select(['stat_names.name AS stat', 'change'])
+        .from('move_meta_stat_changes')
+        .join('stat_names', {'stat_names.stat_id': 'move_meta_stat_changes.stat_id'})
+        .where({'stat_names.local_language_id': 9})
+        .whereIn('move_meta_stat_changes.move_id', () => {
+            this.select(['move_id'])
+                .from('move_names')
+                .where({
+                    name
+                });
+        });
+
+    when.all([
+        query(moveParseSQL.toString()),
+        query(getStatChangerSQL.toString())
+    ]).spread((moveParser, statChanger) => {
+        moveParser = moveParser[0];
+        statChanger = statChanger[0];
+        moveParser.status = 200;
+        moveParser.statsChanged = statChanger;
+
+        callback(moveParser);
+    }, err => {
+        handleError(err, callback);
+    })
+};
