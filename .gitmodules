@@ -1,0 +1,3 @@
+[submodule "pokemon-battle-simulator-frontend"]
+	path = pokemon-battle-simulator-frontend
+	url = git@github.com:silverAndroid/pokemon-battle-simulator-frontend.git
